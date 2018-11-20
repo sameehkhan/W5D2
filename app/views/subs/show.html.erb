@@ -1,8 +1,10 @@
-<h2>Sub</h2>
-<a href="<%=subs_url%>"><img src="./assets/reddit.png" style='display:inline; width: 150px;' alt=""></a>
-<li><%=@sub.title%></li>
-<li><%=@sub.description%></li>
-<li><%= User.find(@sub.moderator_id).username %></li>
+<h1>r/<%=@sub.title%></h1>
+  <h3>Moderator</h3><%=User.find(@sub.moderator_id).username%>
+  <h3>Description</h3><%=@sub.description%>
+
+<br>
+
+
 <a href="<%=edit_sub_url(@sub)%>"> Edit</a>
 
 <h1>Create Post</h1>
@@ -14,16 +16,33 @@
   <label>URL
     <input type="text" name="post[url]" value="">
   </label>
+  <br><br>
   <label>Content
     <textarea name="post[content]" value="">
       </textarea>
   </label>
+  
+  <label><br> Post to: <br>
+    <% Sub.all.each do |sub| %>
+      <label>
+        <input type="checkbox" name="<%= sub.title %>" value="<%= sub.id %>">
+        <%= sub.title %><br>
+      </label>
+    <% end %>
+  </label>
+  
   <input type="submit" name="" value="Create Post">
+  <br><br>
 </form>
 
 
 <% @sub.posts.each do |post| %>
   <%= post.title %>
+  <form class="" action="<%=  post_url(post)%>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%> ">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" name="" value="Delete">
+  </form>
   <li><%= post.url %></li>
   <li><%= post.content%></li>
   <br>

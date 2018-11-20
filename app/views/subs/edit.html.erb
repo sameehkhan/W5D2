@@ -1,6 +1,6 @@
 <h1>Edit Sub</h1>
 <form class="" action="<%=sub_url(@sub)%>" method="post">
-  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%> ">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
   <input type="hidden" name="_method" value="patch">
   <label>Title
     <input type="text" name="sub[title]" value="">
@@ -11,3 +11,10 @@
   </label>
   <input type="submit" name="" value="Edit Sub">
 </form>
+
+<marquee>
+<form class="" action="<%=subs_url%>" method="get">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <input style="font-size: 50px;" type="submit" name="" value="Home">
+</form>
+</marquee>

@@ -23,6 +23,8 @@ class Post < ApplicationRecord
     foreign_key: :sub_id,
     class_name: :Sub
     
+  has_many :post_subs
+    
   def author?
     current_user.id == self.user_id
   end
