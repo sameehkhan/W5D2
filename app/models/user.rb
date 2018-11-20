@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint(8)        not null, primary key
+#  username        :string           not null
+#  password_digest :string           not null
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true 
   validates :session_token, :password_digest, presence: true
@@ -5,6 +17,14 @@ class User < ApplicationRecord
   
   attr_reader :password 
   after_initialize :ensure_session_token
+  
+  has_many :subs,
+    foreign_key: :moderator_id,
+    class_name: :Sub
+    
+  has_many :posts,
+    foreign_key: :user_id,
+    class_name: :Post
   
   def password=(password)
     @password = password 
@@ -19,7 +39,7 @@ class User < ApplicationRecord
     self.session_token ||= SecureRandom.urlsafe_base64
   end
   
-  def reset_session_token
+  def reset_session_token!
     self.session_token = SecureRandom.urlsafe_base64
     self.save
     self.session_token
