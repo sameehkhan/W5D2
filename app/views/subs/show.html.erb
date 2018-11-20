@@ -1,0 +1,6 @@
+<h2>Sub</h2>
+
+<li><%=@sub.title%></li>
+<li><%=@sub.description%></li>
+<li><%= User.find(@sub.moderator_id).username %></li>
+<a href="<%=edit_sub_url(@sub)%>"> Edit</a>

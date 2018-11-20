@@ -22,8 +22,6 @@ class Sub < ApplicationRecord
     foreign_key: :sub_id,
     class_name: :Post
   
-    def moderator?
-      return current_user.id == self.moderator_id
-    end
+    
     
 end

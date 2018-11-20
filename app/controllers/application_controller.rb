@@ -16,12 +16,13 @@ class ApplicationController < ActionController::Base
   end
   
   def logout
-    session[:session_token] = nil 
     current_user.reset_session_token!
+    session[:session_token] = nil 
   end
   
   def require_login
     redirect_to new_session_url unless logged_in?
   end
+  
 
 end

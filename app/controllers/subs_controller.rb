@@ -1,5 +1,6 @@
 class SubsController < ApplicationController
-  before_action :moderator?
+  before_action :moderator?, only:[:edit, :update]
+  
   
   def new 
   end
@@ -19,20 +20,21 @@ class SubsController < ApplicationController
   def show
     @sub = Sub.find(params[:id])
   end
-  
+   
   def edit
     @sub = Sub.find(params[:id])
   end
   
   def update
     @sub = Sub.find(params[:id])
-    if @sub.update(sub_params)
-      redirect_to sub_url(@sub)
-    else
-      flash.now[:errors] = @sub.errors.full_messages
-      render :edit
+      if @sub.update(sub_params)
+        redirect_to sub_url(@sub)
+      else
+        flash.now[:errors] = @sub.errors.full_messages
+        render :edit
     end
-  end
+  end 
+
   
   def index
     @subs = Sub.all
@@ -40,5 +42,11 @@ class SubsController < ApplicationController
   
   def sub_params
     params.require(:sub).permit(:title, :description)
+  end
+  
+  private
+  def moderator?
+    @sub = Sub.find(params[:id])
+    redirect_to subs_url unless @sub.moderator_id == current_user.id
   end
 end
