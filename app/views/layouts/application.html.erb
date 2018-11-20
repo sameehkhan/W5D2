@@ -10,6 +10,11 @@
   </head>
 
   <body>
+    
+    
+    
+    <br><br>
+    <center>
     <% if logged_in? %>
     <%= current_user.username %>
       <form class="" action="<%=session_url %>" method="post">
@@ -17,7 +22,9 @@
         <input type="hidden" name="_method" value="delete">
         <input type="submit" name="" value="Logout">
       </form>
+      
     <% end %>
+    </center>
     <% if flash[:errors]  %>
     <% flash[:errors].each do |err|  %>
       <%= err %>

@@ -12,7 +12,7 @@ class PostsController < ApplicationController
     @post.sub_id = params[:sub_id]
     @post.save
     flash.now[:errors] = @post.errors.full_messages
-    render :new
+    redirect_to sub_url(@post.sub_id)
   end
   
   def show
@@ -41,5 +41,10 @@ class PostsController < ApplicationController
   
   def post_params
     params.require(:post).permit(:title, :url, :content)
+  end
+  
+  def author?
+    @post = Post.find(params[:id])
+    redirect_to sub_url(@post.sub_id) unless @post.user_id == current_user.id
   end
 end
