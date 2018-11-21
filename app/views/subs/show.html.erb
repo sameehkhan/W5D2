@@ -47,3 +47,7 @@
   <li><%= post.content%></li>
   <br>
 <% end %>
+
+
+
+git filter-branch -f --env-filter "GIT_AUTHOR_NAME='sameehkhan'; GIT_AUTHOR_EMAIL='sameehkhan1@gmail.com'; GIT_COMMITTER_NAME='sameehkhan'; GIT_COMMITTER_EMAIL='sameehkhan1@gmail.com';" HEAD
